@@ -54,7 +54,21 @@ function ProcessingInstructionToHTML(pi) {
 }
 
 function CommentToHTML(comment) {
-  
+  var parentNode = comment.parentNode;
+  var nextSibling = comment.nextSibling;
+  var text = '';
+  if (global.document && parentNode) {
+    var temp = global.document.createElement('div');
+    temp.appendChild(comment);
+    text = temp.innerHTML;
+    temp.removeChild(comment);
+    if (nextSibling) {
+      parentNode.insertBefore(comment, nextSibling);
+    } else {
+      parentNode.appendChild(comment);
+    }
+  }
+  return text;
 }
 
 function DocumentToHTML(document) {

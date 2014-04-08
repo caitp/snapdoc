@@ -86,3 +86,23 @@ describe("DocumentTypeToHTML", function() {
     });
   });
 });
+
+describe("CommentToHTML", function() {
+  function collectComments(body) {
+    var comments = [];
+    for (var i=0, ii=body.childNodes.length; i<ii; ++i) {
+      var node = body.childNodes[i];
+      if (node.nodeType === 8) {
+        comments.push(node);
+      }
+    }
+    return comments;
+  }
+  it("should render comments", function(done) {
+    this.loadDocument("/test/fixtures/comments/basic.html", function(doc) {
+      var comment = collectComments(doc.body)[0];
+      expect(snapdoc.comment(comment)).toBe('<!-- Hello, world! -->');
+      done();
+    });
+  });
+});
