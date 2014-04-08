@@ -68,10 +68,35 @@ function TextToHTML(text) {
 }
 
 function ProcessingInstructionToHTML(pi) {
-  
+  var text = '';
+  if (pi.nodeType === COMMENT_NODE) {
+    var match = PI_REGEXP.exec(pi.data);
+    if (match) {
+      text = '<?' + match[1] + match[2] + match[7] + '?>';
+    }
+  } else {
+    text = DisplaceNode(pi);
+    if (text === false) {
+      var data = IsString(pi.data) && pi.data;
+      text = '<?' + pi.target;
+      if (data) text += ' ' + pi.data + ' ';
+      text += '?>';
+    }
+  }
+  return text;
 }
 
+var PI_REGEXP = /^\?(\w+)((\s+(\w+)=((['"])[^\6]*\6))*)(\s*)\?$/;
+
 function CommentToHTML(comment) {
+  // Chrome is kind of stupid, and can mistake a PI node for a Comment. It will render them
+  // incorrectly, so we need to pre-process the node to make sure it's actually a PI, before
+  // deferring to the DOM.
+  var match = PI_REGEXP.exec(comment.data);
+  if (match) {
+    return '<?' + match[1] + match[2] + match[7] + '?>';
+  }
+  
   var text = DisplaceNode(comment);
   if (text === false) {
     

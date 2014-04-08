@@ -106,3 +106,22 @@ describe("CommentToHTML", function() {
     });
   });
 });
+
+describe("ProcessingInstructionToHTML", function() {
+  it("should render common xml version/encoding processing instruction", function(done) {
+    this.loadDocument("/test/fixtures/processing_instruction/xml.version.encoding.html", function(doc) {
+      expect(snapdoc.processing(doc.childNodes[0])).toBe('<?xml version="1.0" encoding="UTF-8" ?>');
+      done();
+    });
+  });
+
+  if (document.createProcessingInstruction) {
+    it("should render common xml version/encoding processing instruction from PI node type", function() {
+      // This method is totally synchronous and doesn't depend on loading a fixture at all! This
+      // test is needed, because the previous test is possibly using a comment node due to Chrome's
+      // weirdness.
+      var pi = document.createProcessingInstruction("xml", 'version="1.0" encoding="UTF-8"');
+      expect(snapdoc.processing(pi)).toBe('<?xml version="1.0" encoding="UTF-8" ?>');
+    });
+  }
+});
