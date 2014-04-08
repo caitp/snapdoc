@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/caitp/snapdoc",
   "devDependencies": {
-    "karma": "^0.12.4"
+    "karma": "^0.12.4",
+    "karma-jasmine": "^0.1.5"
   }
 }
