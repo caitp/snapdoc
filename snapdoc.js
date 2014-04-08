@@ -41,6 +41,24 @@ function IsJQueryLike(node) {
   return (jqLite && node instanceof jqLite); 
 }
 
+function DisplaceNode(node) {
+  var parentNode = node.parentNode;
+  var nextSibling = node.nextSibling;
+  var text = false;
+  if (global.document && parentNode) {
+    var temp = global.document.createElement('div');
+    temp.appendChild(node);
+    text = temp.innerHTML;
+    temp.removeChild(node);
+    if (nextSibling) {
+      parentNode.insertBefore(node, nextSibling);
+    } else {
+      parentNode.appendChild(node);
+    }
+  }
+  return text;
+}
+
 function ElementToHTML(element) {
   
 }
@@ -54,25 +72,15 @@ function ProcessingInstructionToHTML(pi) {
 }
 
 function CommentToHTML(comment) {
-  var parentNode = comment.parentNode;
-  var nextSibling = comment.nextSibling;
-  var text = '';
-  if (global.document && parentNode) {
-    var temp = global.document.createElement('div');
-    temp.appendChild(comment);
-    text = temp.innerHTML;
-    temp.removeChild(comment);
-    if (nextSibling) {
-      parentNode.insertBefore(comment, nextSibling);
-    } else {
-      parentNode.appendChild(comment);
-    }
+  var text = DisplaceNode(comment);
+  if (text === false) {
+    
   }
   return text;
 }
 
 function DocumentToHTML(document) {
-  
+
 }
 
 function DocumentTypeToHTML(doctype) {
