@@ -109,12 +109,11 @@ function Wrap(nodeFunction) {
 }
 
 function snapdoc(node) {
-    if (!node) node = document;
-    else if (node instanceof Window) node = node.document;
-    else if (IsJQueryLike(node)) return JQueryNodesToHTML(node);
-    return NodeToHTML(node);
-  }
-};
+  if (!node) node = document;
+  else if (node instanceof Window) node = node.document;
+  else if (IsJQueryLike(node)) return JQueryNodesToHTML(node);
+  return NodeToHTML(node);
+}
 
 var snap = snapdoc;
 
