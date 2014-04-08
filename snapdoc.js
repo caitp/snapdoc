@@ -37,7 +37,7 @@ function IsJQueryLike(node) {
   }
 
   // As a last-ditch effort, try Angular's jqLite.
-  var jqLite = IsObject(angular) && IsFunction(angular.element) && angular.element;
+  var jqLite = IsObject(global.angular) && IsFunction(angular.element) && angular.element;
   return (jqLite && node instanceof jqLite); 
 }
 
@@ -99,7 +99,7 @@ function NodeToHTML(node) {
 function Wrap(nodeFunction) {
   return function(node) {
     if (node) {
-      if (IsJQueryLikeNode(node)) {
+      if (IsJQueryLike(node)) {
         node = node[0];
       }
       return node && nodeFunction(node);
