@@ -1,0 +1,26 @@
+{
+  "name": "snapdoc",
+  "version": "0.1.0",
+  "description": "Convert arbitrary DOM nodes to HTML or XHTML",
+  "main": "snapdoc.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/caitp/snapdoc"
+  },
+  "keywords": [
+    "DOM",
+    "snapshot",
+    "markup",
+    "html",
+    "serialize"
+  ],
+  "author": "Caitlin Potter <caitpotter88@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/caitp/snapdoc/issues"
+  },
+  "homepage": "https://github.com/caitp/snapdoc"
+}
