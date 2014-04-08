@@ -17,6 +17,8 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     files: [
+      { pattern: 'test/fixtures/**/*', included: false, served: true },
+      'test/helpers/browser.helper.js',
       'snapdoc.js',
       'test/*.js'
     ],
