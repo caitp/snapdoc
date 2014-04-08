@@ -1,3 +1,13 @@
+function getChildElement(parent, nodeName) {
+  for (var i=0, ii=parent.childNodes.length; i<ii; ++i) {
+    var node = parent.childNodes[i];
+    if (node.nodeName.toLowerCase() === nodeName.toLowerCase()) {
+      return node;
+    }
+  }
+  return null;
+}
+
 describe("DocumentTypeToHTML", function() {
   it("should render HTML4.01 strict doctype", function(done) {
     this.loadDocument("/test/fixtures/doctype/html.4.01.strict.html", function(doc) {
@@ -124,4 +134,32 @@ describe("ProcessingInstructionToHTML", function() {
       expect(snapdoc.processing(pi)).toBe('<?xml version="1.0" encoding="UTF-8" ?>');
     });
   }
+});
+
+describe("TextToHTML", function() {
+  it("should render text nodes with latin1 characters", function(done) {
+    this.loadDocument("/test/fixtures/text_nodes/paragraph.latin1.html", function(doc) {
+      var text = getChildElement(doc.body, "p").childNodes[0];
+      expect(snapdoc.text(text)).toBe('Hello, world!');
+      done();
+    });
+  });
+
+
+  it("should render text nodes with non-latin1 characters in the unicode BMP", function(done) {
+    this.loadDocument("/test/fixtures/text_nodes/paragraph.bmp.html", function(doc) {
+      var text = getChildElement(doc.body, "p").childNodes[0];
+      expect(snapdoc.text(text)).toBe('안녕하세요');
+      done();
+    });
+  });
+
+
+  it("should render text nodes with characters in the unicode supplementary planes", function(done) {
+    this.loadDocument("/test/fixtures/text_nodes/paragraph.supplementary.html", function(doc) {
+      var text = getChildElement(doc.body, "p").childNodes[0];
+      expect(snapdoc.text(text)).toBe('☼☉☽♂♀♃☿♄');
+      done();
+    });
+  });
 });

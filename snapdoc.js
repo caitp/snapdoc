@@ -64,7 +64,7 @@ function ElementToHTML(element) {
 }
 
 function TextToHTML(text) {
-  
+  return DisplaceNode(text) || text.data;
 }
 
 function ProcessingInstructionToHTML(pi) {
