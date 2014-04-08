@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/caitp/snapdoc/issues"
   },
-  "homepage": "https://github.com/caitp/snapdoc"
+  "homepage": "https://github.com/caitp/snapdoc",
+  "devDependencies": {
+    "karma": "^0.12.4"
+  }
 }
