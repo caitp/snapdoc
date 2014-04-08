@@ -105,7 +105,11 @@ function CommentToHTML(comment) {
 }
 
 function DocumentToHTML(document) {
-
+  var text = '';
+  for (var i=0, ii=document.childNodes.length; i<ii; ++i) {
+    text += NodeToHTML(document.childNodes[i]);
+  }
+  return text;
 }
 
 function DocumentTypeToHTML(doctype) {
