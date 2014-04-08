@@ -163,3 +163,44 @@ describe("TextToHTML", function() {
     });
   });
 });
+
+
+describe("ElementToHTML", function() {
+  var elements = {
+    "p": ["<p>hello, world</p>", "<p>hello, world</p>"],
+    "i": ["<i>hello, world</i>", "<i>hello, world</i>"],
+    "b": ["<b>hello, world</b>", "<b>hello, world</b>"],
+    "em": ["<em>hello, world</em>", "<em>hello, world</em>"],
+    "strong": ["<strong>hello, world</strong>", "<strong>hello, world</strong>"],
+    "h1": ["<h1>hello, world</h1>", "<h1>hello, world</h1>"],
+    "h2": ["<h2>hello, world</h2>", "<h2>hello, world</h2>"],
+    "h3": ["<h3>hello, world</h3>", "<h3>hello, world</h3>"],
+    "h4": ["<h4>hello, world</h4>", "<h4>hello, world</h4>"],
+    "h5": ["<h5>hello, world</h5>", "<h5>hello, world</h5>"],
+    "h6": ["<h6>hello, world</h6>", "<h6>hello, world</h6>"],
+    "form": ['<form><input type="text" value="foo"></form>', '<form><input type="text" value="foo"></form>'],
+    "div": ["<div><p><b>yo</b></p></div>", "<div><p><b>yo</b></p></div>"],
+    "main": ["<main><p><b>yo</b></p></main>", "<main><p><b>yo</b></p></main>"],
+    "article": ["<article><p><b>yo</b></p></article>", "<article><p><b>yo</b></p></article>"],
+    "aside": ["<aside><p><b>yo</b></p></aside>", "<aside><p><b>yo</b></p></aside>"],
+    "header": ["<header><p><b>yo</b></p></header>", "<header><p><b>yo</b></p></header>"],
+    "footer": ["<footer><p><b>yo</b></p></footer>", "<footer><p><b>yo</b></p></footer>"],
+    "nav": ["<nav><p><b>yo</b></p></nav>", "<nav><p><b>yo</b></p></nav>"],
+    "table": [
+      "<table><thead><tr><th>foo</th><th>bar</th></tr></thead><tbody><tr><td>a</td><td>b</td></tr></tbody><tfoot><tr><td>c</td><td>d</td></tr></tfoot></table>",
+      "<table><thead><tr><th>foo</th><th>bar</th></tr></thead><tbody><tr><td>a</td><td>b</td></tr></tbody><tfoot><tr><td>c</td><td>d</td></tr></tfoot></table>"
+    ]
+  };
+
+  for (var k in elements) {
+    (function(name) {
+      it("should deserialize <" + name + "> element", function() {
+        var bits = elements[name];
+        var p = document.createElement("div");
+        p.innerHTML = bits[0];
+        var toplevel = getChildElement(p, name);
+        expect(snapdoc.element(toplevel)).toBe(bits[1]);
+      });
+    })(k);
+  }
+});

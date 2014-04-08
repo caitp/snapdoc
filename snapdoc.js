@@ -60,7 +60,7 @@ function DisplaceNode(node) {
 }
 
 function ElementToHTML(element) {
-  
+  return DisplaceNode(element);
 }
 
 function TextToHTML(text) {
