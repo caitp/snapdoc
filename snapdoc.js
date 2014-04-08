@@ -62,9 +62,13 @@ function DocumentToHTML(document) {
 }
 
 function DocumentTypeToHTML(doctype) {
-  var html = ['DOCTYPE', doctype.name || "html"];
-  if (IsString(doctype.publicId)) html.push('PUBLIC', QuotedString(doctype.publicId));
-  if (IsString(doctype.systemId)) html.push(QuotedString(doctype.systemId));
+  var html = ['!DOCTYPE', doctype.name || "html"];
+  if (doctype.publicId && IsString(doctype.publicId)) {
+    html.push('PUBLIC', QuotedString(doctype.publicId));
+    if (doctype.systemId && IsString(doctype.systemId)) {
+      html.push(QuotedString(doctype.systemId));
+    }
+  }
   return '<' + html.join(' ') + '>';
 }
 
