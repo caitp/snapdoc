@@ -9,12 +9,12 @@ routing or directives), in order to validate the output.
 This is an interesting task, but unfortunately it's very difficult to serialize the DOM in this way, and there are a number
 of reasons why:
 
-1) The browser serializes the DOM in a "correct" way, nearly every time. There are some quirks with rendering, however, the
+1. The browser serializes the DOM in a "correct" way, nearly every time. There are some quirks with rendering, however, the
 browser will always close unclosed tags, will remove unallowed elements unless they're created in a very specific fashion.
 It is very difficult to get the browser to serialize invalid markup, except for serializing custom attributes as they are
 specified.
 
-2) Even if the browser could serialize not-totally-valid DOM as it truly appears, with AngularJS in particular, we don't
+2. Even if the browser could serialize not-totally-valid DOM as it truly appears, with AngularJS in particular, we don't
 really know when the DOM is ready to be serialized, as there is no event to listen for. For other dynamic applications,
 such as jQuery + PJAX, this ought to be much simpler. But for dynamic websites using frameworks like Angular, it is quite
 difficult.
